@@ -1,0 +1,41 @@
+name: minimal_chat_app
+description: "A new Flutter project."
+publish_to: "none" # Prevent accidental publishing
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.2.5 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_launcher_icons: "^0.13.1"
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icon_duckie.png"
+  min_sdk_android: 21
+
+  flutter_lints: ^2.0.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/
+    - assets/icons/chat.png
+    - assets/icons/ducky.png
+
+  fonts:
+    - family: Arima
+      fonts:
+        - asset: assets/fonts/Arima-VariableFont_wght.ttf
+          style: italic
