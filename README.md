@@ -9,4 +9,4 @@ Tools: Firebase, Flutter
 Modules:
 Register, Login, Logout, Settings, Chat, Help, Friends List
 
-current progress: Register, Login
+current progress: Register, Login, logout, authentication in Firebase
