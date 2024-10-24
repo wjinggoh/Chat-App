@@ -1,16 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:minimal_chat_app/auth/auth_service.dart';
 import 'package:minimal_chat_app/components/my_button.dart';
 import 'package:minimal_chat_app/components/my_textfield.dart';
-import 'package:minimal_chat_app/pages/register_page.dart';
 
 class LoginPage extends StatelessWidget {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _pwController = TextEditingController();
 
-  LoginPage({super.key});
+  // `onTap` is used to toggle between login and register pages
+  final void Function()? onTap;
 
-  //login method
-  void login() {}
+  LoginPage({super.key, required this.onTap});
+
+  // Login method
+  void login(BuildContext context) async {
+    final authService = AuthService();
+
+    try {
+      await authService.signInWithEmailPassword(
+        _emailController.text,
+        _pwController.text,
+      );
+    } catch (e) {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text(e.toString()),
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,33 +40,18 @@ class LoginPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text("Login\n",
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 25,
                   fontWeight: FontWeight.bold,
                   color: Color.fromARGB(225, 210, 147, 10),
                 )),
-            //logo
-            // Using PNG as an icon
             Image.asset(
               'assets/icons/ducky.png',
               width: 80,
               height: 80,
             ),
-
-            //welcome back message
-            Text(
-              '\n Welcome back, quack quack!',
-              style: TextStyle(
-                color: Theme.of(context).colorScheme.primary,
-                fontSize: 18,
-                fontFamily: 'Arima',
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-
             const SizedBox(height: 25),
 
-            //email textfield
             MyTextField(
               hintText: "Email",
               obsecureText: false,
@@ -56,40 +60,30 @@ class LoginPage extends StatelessWidget {
 
             const SizedBox(height: 10),
 
-            //pw textfield
             MyTextField(
-              //original no const, but the error msg says null type value, so i add the const var here
               hintText: "Password",
               obsecureText: true,
               controller: _pwController,
             ),
 
             const SizedBox(height: 25),
-            //login button
+
             MyButton(
               text: "Login",
-              onTap: login,
+              onTap: () => login(context),
             ),
 
-            //register now
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text("\n Not 🦆ducky member? "),
+                Text("\n Not a 🦆ducky member? "),
                 GestureDetector(
-                  onTap: () {
-                    // Navigate to the login page
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => RegisterPage()),
-                    );
-                  },
+                  onTap: onTap, // Toggle to RegisterPage
                   child: Text(
                     "\n Register Now",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      color:
-                          Colors.black, // Optional: Makes it look like a link
+                      color: Colors.black,
                     ),
                   ),
                 )

@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:minimal_chat_app/pages/login_page.dart';
-import 'package:minimal_chat_app/pages/register_page.dart';
+import 'package:minimal_chat_app/auth/auth_gate.dart';
+import 'package:minimal_chat_app/firebase_options.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 // Import your lightMode theme
 import 'package:minimal_chat_app/themes/light_mode.dart'; // Assuming your theme is in this file
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MyApp());
 }
 
@@ -17,7 +20,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: lightMode, // Apply your theme here
-      home: LoginPage(), // 'const' only for stateless widgets like LoginPage
+      home: AuthGate(),
+      // 'const' only for stateless widgets like LoginPage
     );
   }
 }

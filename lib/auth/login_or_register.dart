@@ -3,38 +3,33 @@ import 'package:minimal_chat_app/pages/login_page.dart';
 import 'package:minimal_chat_app/pages/register_page.dart';
 
 
-class LoginOrRegister extends StatefulWidget{
-  const LoginOrRegister({
-    super.key,
-  });
+class LoginOrRegister extends StatefulWidget {
+  const LoginOrRegister({super.key});
 
   @override
   State<LoginOrRegister> createState() => _LoginOrRegisterState();
-  
 }
 
-class _LoginOrRegisterState extends State<LoginOrRegister>{
+class _LoginOrRegisterState extends State<LoginOrRegister> {
+  bool showLoginPage = true;
 
-  //initial show login page
-
-  bool showLoginPage=true;
-
-  //toggle between login and register page
-
-  void togglePages(){
+  // Toggle between login and register pages
+  void togglePages() {
     setState(() {
-      showLoginPage =!showLoginPage;
+      showLoginPage = !showLoginPage;
     });
   }
 
-
-
   @override
-  Widget build(BuildContext context){
-    if(showLoginPage){
-      return LoginPage();
-    }else{
-      return RegisterPage();
+  Widget build(BuildContext context) {
+    if (showLoginPage) {
+      return LoginPage(
+        onTap: togglePages, // Toggles to RegisterPage
+      );
+    } else {
+      return RegisterPage(
+        onTap: togglePages, // Toggles back to LoginPage
+      );
     }
   }
 }
