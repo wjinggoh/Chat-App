@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:minimal_chat_app/auth/auth_gate.dart';
+import 'package:minimal_chat_app/services/auth/auth_gate.dart';
 import 'package:minimal_chat_app/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: lightMode, // Apply your theme here
-      home: AuthGate(),
+      home: const AuthGate(),
       // 'const' only for stateless widgets like LoginPage
     );
   }

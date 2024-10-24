@@ -1,8 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthService {
   // Instance of FirebaseAuth
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   // Sign in with email and password
   Future<UserCredential> signInWithEmailPassword(
@@ -40,19 +42,19 @@ class AuthService {
   // Sign up with email and password
   Future<UserCredential> signUpWithEmailPassword(
       String email, String password, String confirmPassword) async {
-    // Check if password and confirmPassword match
-    if (password != confirmPassword) {
-      throw Exception('Passwords do not match.');
-    }
-
-    print('Attempting to sign up with email: $email');
     try {
+      //sign user in
       UserCredential userCredential =
           await _auth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
-      print('Sign up successful for user: ${userCredential.user?.email}');
+
+      //save user info in a separate doc if it doesnt exist
+      _firestore.collection("Users").doc(userCredential.user!.uid).set(
+        {'uid': userCredential.user!.uid, 'email': email},
+      );
+
       return userCredential;
     } on FirebaseAuthException catch (e) {
       print(

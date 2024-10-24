@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:minimal_chat_app/auth/auth_service.dart';
+import 'package:minimal_chat_app/services/auth/auth_service.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
@@ -32,6 +32,7 @@ class SettingsPage extends StatelessWidget {
           ],
         ),
         backgroundColor: Colors.amber.shade200,
+
       ),
     );
   }

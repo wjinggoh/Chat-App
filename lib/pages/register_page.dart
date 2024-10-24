@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:minimal_chat_app/auth/auth_service.dart';
+import 'package:minimal_chat_app/services/auth/auth_service.dart';
 import 'package:minimal_chat_app/components/my_button.dart';
 import 'package:minimal_chat_app/components/my_textfield.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:minimal_chat_app/pages/home_page.dart'; // Import your homepage here
 
 class RegisterPage extends StatelessWidget {
   final TextEditingController _emailController = TextEditingController();
@@ -12,26 +14,60 @@ class RegisterPage extends StatelessWidget {
 
   RegisterPage({super.key, required this.onTap});
 
-  void register(BuildContext context) {
+  // Function to handle user registration
+  void register(BuildContext context) async {
     final _auth = AuthService();
 
     if (_pwController.text == _confirmPwController.text) {
       try {
-        _auth.signUpWithEmailPassword(_emailController.text, _pwController.text,
-            _confirmPwController.text);
-      } catch (e) {
+        // Try to sign up the user with email and password
+        await _auth.signUpWithEmailPassword(
+          _emailController.text,
+          _pwController.text,
+          _confirmPwController.text,
+        );
+
+        // Navigate to the homepage on successful registration
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (context) =>
+                  HomePage()), // Replace with your actual HomePage widget
+        );
+      } on FirebaseAuthException catch (e) {
+        // Handle specific FirebaseAuth exceptions
         showDialog(
           context: context,
           builder: (context) => AlertDialog(
-            title: Text(e.toString()),
+            title: Text("Error"),
+            content: Text(
+              e.code == 'email-already-in-use'
+                  ? "The email address is already in use by another account."
+                  : e.code == 'weak-password'
+                      ? "The password provided is too weak."
+                      : e.code == 'invalid-email'
+                          ? "The email address is not valid."
+                          : e.message ?? "An unknown error occurred.",
+            ),
+          ),
+        );
+      } catch (e) {
+        // Catch other types of exceptions (non-FirebaseAuth exceptions)
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text("Error"),
+            content: Text(e.toString()),
           ),
         );
       }
     } else {
+      // Passwords do not match
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: Text("Quack, password not match!"),
+          title: Text("Error"),
+          content: Text("Passwords do not match!"),
         ),
       );
     }
@@ -56,7 +92,7 @@ class RegisterPage extends StatelessWidget {
               width: 80,
               height: 80,
             ),
-            Text("\n"),
+            const SizedBox(height: 20),
             MyTextField(
               hintText: "Email",
               obsecureText: false,
@@ -82,11 +118,11 @@ class RegisterPage extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text("\n Already a 🦆ducky member? "),
+                const Text("\nAlready a 🦆ducky member? "),
                 GestureDetector(
                   onTap: onTap, // Toggle back to LoginPage
-                  child: Text(
-                    "\n Login Now",
+                  child: const Text(
+                    "\nLogin Now",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Colors.black,
