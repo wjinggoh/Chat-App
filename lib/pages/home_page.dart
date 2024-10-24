@@ -44,17 +44,6 @@ class HomePage extends StatelessWidget {
         ),
         backgroundColor: Colors.amber.shade100,
       ),
-      body: Center(
-        // Center widget to center the text vertically
-        child: Text(
-          "Friends List",
-          style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold), // Customize text style if needed
-        ),
-      ),
-
-      
       bottomNavigationBar: BottomAppBar(
         child: IconButton(
           icon: Icon(Icons.settings),
