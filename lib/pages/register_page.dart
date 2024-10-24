@@ -81,8 +81,8 @@ class RegisterPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("Register\n",
-                style: const TextStyle(
+            const Text("Register\n",
+                style: TextStyle(
                   fontSize: 25,
                   fontWeight: FontWeight.bold,
                   color: Color.fromARGB(225, 210, 147, 10),
@@ -92,6 +92,11 @@ class RegisterPage extends StatelessWidget {
               width: 80,
               height: 80,
             ),
+            const Text("\nQuack quack! nice to meet you!\n",
+                style: TextStyle(
+                    fontFamily: "Arima",
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18)),
             const SizedBox(height: 20),
             MyTextField(
               hintText: "Email",

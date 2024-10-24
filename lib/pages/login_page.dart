@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:minimal_chat_app/pages/home_page.dart';
 import 'package:minimal_chat_app/services/auth/auth_service.dart';
 import 'package:minimal_chat_app/components/my_button.dart';
 import 'package:minimal_chat_app/components/my_textfield.dart';
@@ -20,6 +21,14 @@ class LoginPage extends StatelessWidget {
       await authService.signInWithEmailPassword(
         _emailController.text,
         _pwController.text,
+      );
+
+      // Navigate to the homepage on successful registration
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+            builder: (context) =>
+                HomePage()), // Replace with your actual HomePage widget
       );
     } catch (e) {
       showDialog(
@@ -50,29 +59,28 @@ class LoginPage extends StatelessWidget {
               width: 80,
               height: 80,
             ),
+            const Text("\nWelcome back! Quack quack~ \n",
+                style: TextStyle(
+                    fontFamily: "Arima",
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18)),
             const SizedBox(height: 25),
-
             MyTextField(
               hintText: "Email",
               obsecureText: false,
               controller: _emailController,
             ),
-
             const SizedBox(height: 10),
-
             MyTextField(
               hintText: "Password",
               obsecureText: true,
               controller: _pwController,
             ),
-
             const SizedBox(height: 25),
-
             MyButton(
               text: "Login",
               onTap: () => login(context),
             ),
-
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

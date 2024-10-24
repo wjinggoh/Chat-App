@@ -17,6 +17,7 @@ class MyDrawer extends StatelessWidget {
             children: [
               //logo!
               DrawerHeader(
+                
                 child: Center(
                   child: Image.asset(
                     'assets/icons/ducky.png',
@@ -24,6 +25,7 @@ class MyDrawer extends StatelessWidget {
                     height: 80,
                   ),
                 ),
+                
               ),
 
               //home icon
