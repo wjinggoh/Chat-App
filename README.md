@@ -1,16 +1,12 @@
-# minimal_chat_app
+# chat app project
 
-A new Flutter project.
+referenced from:
+https://www.youtube.com/watch?v=5xU5WH2kEc0&list=PLlvRDpXh1Se68K3r2NUU5sGhyRPDPBPSQ&index=3&ab_channel=MitchKoko
 
-## Getting Started
+but i change the UI myself and have some additional thoughts added to this simple application
 
-This project is a starting point for a Flutter application.
+Tools: Firebase, Flutter
+Modules:
+Register, Login, Logout, Settings, Chat, Help, Friends List
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+current progress: Register, Login
