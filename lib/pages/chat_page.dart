@@ -22,6 +22,10 @@ class ChatPage extends StatelessWidget {
   final ChatService _chatService = ChatService();
   final AuthService _authService = AuthService();
 
+  //for textfield focus
+
+  FocusNode myFocusNode = FocusNode();
+
   //send message
   void sendMessage() async {
     //if there is something inside the textfield
