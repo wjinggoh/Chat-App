@@ -52,6 +52,7 @@ class HomePage extends StatelessWidget {
           ],
         ),
         backgroundColor: Colors.amber.shade100,
+        elevation: 0,
       ),
       bottomNavigationBar: BottomAppBar(
         child: Row(
